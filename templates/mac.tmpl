@@ -1,0 +1,6 @@
+default linux
+prompt 0
+timeout 1
+label linux
+    kernel {{.Kernel}}
+    append ks={{.Ksfile}} initrd={{.Initrd}} ksdevice=bootif kssendmac text

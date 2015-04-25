@@ -1,0 +1,40 @@
+# cobbgo ks generator
+install
+url --url=http://mirrors.usc.edu/pub/linux/distributions/centos/6.6/os/x86_64
+
+rootpw --iscrypted $6$sqOYpMiR$E03.TlunerzSFDOwlJkTmHI5r3pl3xJhwjl2F/TNSx61UPXXHgnbfETrQfusHoDhFANaWyk6Tr/WBH4d0InbU0
+
+network --onboot yes --device eth0 --mtu=1500 --bootproto static --ip 94.46.147.113 --netmask 255.255.255.0 --gateway 94.46.147.1 --nameserver 8.8.8.8 --hostname edge13-cdg-n.maxcdn.net
+auth --useshadow --passalgo=sha512 --enablefingerprint
+text
+keyboard us
+lang en_US
+selinux --disabled
+firewall --disabled
+skipx
+logging --level=info
+timezone --utc Etc/UTC
+
+zerombr
+clearpart --all
+
+part / --fstype=ext4 --size=1 --grow --ondisk=sdb --asprimary
+part swap --fstype=swap --size=4096 --ondisk=sdb
+part /data --fstype=ext4 --size=1 --grow --ondisk=sda
+bootloader --location=mbr --driveorder=sdb --append="crashkernel=auto rhgb quiet"
+firstboot --disable
+reboot
+
+%pre
+#/bin/sh
+touch /tmp/part.cfg
+%end
+
+%packages
+@base
+@core
+
+%post --log=/root/postinstall.log
+/usr/sbin/pwconv
+wget -O- http://nagios-vir05.maxcdn.net/status/afterinstall.sh | /bin/bash
+%end

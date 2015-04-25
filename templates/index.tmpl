@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap-theme.min.css">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+  <title>Cobbgo</title>
+  </head>
+
+<body>
+
+<h1>Welcome to cobbgo!</h1>
+</br>
+
+<a class="btn btn-primary btn-lg" href="/cobbgo/add">Add Profile</a>
+
+<h2>A list of system profiles</h2>
+<table class="table table-hover">
+  <tr>
+    <td><strong>Hostname</strong></td>
+    <td><strong>MacAddress</strong></td>
+    <td><strong>Kickstart Profile</strong></td>
+    <td><strong>Edit/Delete</strong></td>
+  <tr>
+  {{ range $k, $v := . }}
+  <tr>
+    <td>{{ $k }}</td>
+    <td>{{ $v.macaddr }}</td>
+    <td>{{ $v.ksprofile }}</td>
+    <td>
+      <div class="btn-group" role="group" aria-label="...">
+        <button type="button" class="btn btn-default">Edit</button>
+        <form role="form" method="GET">
+            <button type="submit" id="{{ $k }}" class="btn btn-default">Delete</button>
+        </form>
+      </div>
+    </td>
+  </tr>
+  {{ end }}
+</table>
+
+</body>
+</html>

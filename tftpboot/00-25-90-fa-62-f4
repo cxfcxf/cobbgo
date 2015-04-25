@@ -1,0 +1,6 @@
+default linux
+prompt 0
+timeout 1
+label linux
+    kernel http://cxfcxf.netdnasa16.netdna-cdn.com/vmlinuz
+    append ks=http://75.126.44.163:8888/ks.cfg?version=6.6&ondisk=sdb&ipaddr=94.46.147.116&nm=255.255.255.0&gw=94.46.147.1&hostname=edge16-cdg-n.maxcdn.net initrd=http://cxfcxf.netdnasa16.netdna-cdn.com/initrd.img ksdevice=bootif kssendmac text

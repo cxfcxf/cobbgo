@@ -25,7 +25,8 @@
     <td><strong>Hostname</strong></td>
     <td><strong>MacAddress</strong></td>
     <td><strong>Kickstart Profile</strong></td>
-    <td><strong>Edit/Delete</strong></td>
+    <td><strong>Edit</strong></td>
+    <td><strong>Delete</strong></td>
   <tr>
   {{ range $k, $v := . }}
   <tr>
@@ -33,12 +34,14 @@
     <td>{{ $v.macaddr }}</td>
     <td>{{ $v.ksprofile }}</td>
     <td>
-      <div class="btn-group" role="group" aria-label="...">
-        <button type="button" class="btn btn-default">Edit</button>
-        <form role="form" method="GET">
-            <button type="submit" id="{{ $k }}" class="btn btn-default">Delete</button>
+        <form action="/cobbgo/edit/{{ $k }}" method="GET">
+          <button type="submit" class="btn btn-default">Edit</button>
         </form>
-      </div>
+    </td>
+    <td>
+        <form action="/cobbgo/delete/{{ $k }}" method="POST">
+          <button type="submit" class="btn btn-default">Delete</button>
+        </form>
     </td>
   </tr>
   {{ end }}
